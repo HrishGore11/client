@@ -1,0 +1,34 @@
+.css-h3pk101 {
+  position: relative;
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+  outline: 0px;
+  border: 0px;
+  margin: 0px;
+  cursor: pointer;
+  vertical-align: middle;
+  appearance: none;
+  text-decoration: none;
+  font-family: Roboto, Helvetica, Arial, sans-serif;
+  letter-spacing: 0.02857em;
+  min-width: 64px;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 0.75rem;
+  font-weight: 700;
+  border-radius: 0.5rem;
+  line-height: 1.4;
+  text-align: center;
+  text-transform: uppercase;
+  -webkit-user-select: none;
+  user-select: none;
+  transition: all 150ms ease-in 0s;
+  background-color: transparent;
+  min-height: 2.5rem;
+  box-shadow: none;
+  padding: 0.25rem 0.2rem;
+  color: rgb(60 150 238);
+  background-size: 150% !important;
+  background-position-x: 25% !important;
+}
