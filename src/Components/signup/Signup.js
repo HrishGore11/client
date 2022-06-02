@@ -1,3 +1,6 @@
+import axios from "axios";
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import "./Signup.css";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
@@ -6,6 +9,47 @@ import { Link } from "@mui/material";
 let bgImage = require("./sign-up.jpeg");
 
 export default function Signup() {
+  const [credentials, setCredentials] = useState({
+    Name: "",
+    email: "",
+    password: "",
+  });
+  let navigate = useNavigate();
+  // const {name, email, password} = credentials;
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    axios
+      .post("http://localhost:9045/api/auth/signUp", credentials)
+      .then((data) => {
+        console.log(data.data.createUser);
+        if (data.data.message === "succesfully created User") {
+          // localStorage.setItem("token", data.data.token);
+          // console.log(data.data.token);
+          window.alert("Register Successfull");
+          navigate("/Login");
+        }
+      });
+    // const response = await fetch("http://localhost:5000/api/signUp", {
+    //   method: "POST",
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //   },
+    //   body: JSON.stringify({
+    //     name, email, password
+    //   }),
+    // });
+    // const json = await response.json();
+    // console.log(json);
+    // if(json.success){
+    //   //save the auth-token and redirect
+    //   localStorage.setItem("token", json.token);
+    //   navigate('/login')
+    //   window.alert("Account Created Successfully");
+    // }
+  };
+  const handleChange = (e) => {
+    setCredentials({ ...credentials, [e.target.name]: e.target.value });
+  };
   return (
     <div className="App">
       <div
@@ -22,7 +66,7 @@ export default function Signup() {
           </span>
         </div>
         <div className="form-div1">
-          <form>
+          <form onSubmit={handleSubmit}>
             <div className="form-div2">
               <Box sx={{ display: "flex", alignItems: "flex-end" }}>
                 <AccountCircle
@@ -30,9 +74,13 @@ export default function Signup() {
                 />
                 <TextField
                   fullWidth
-                  id="input-with-sx"
+                  // id="input-with-sx"
                   label="Your Name"
                   variant="standard"
+                  value={credentials.Name}
+                  onChange={handleChange}
+                  id="name"
+                  name="Name"
                 />
               </Box>
             </div>
@@ -45,6 +93,9 @@ export default function Signup() {
                 type="Email"
                 variant="standard"
                 size="small"
+                value={credentials.email}
+                onChange={handleChange}
+                name="email"
               />
             </div>
             <div className="form-div2">
@@ -57,15 +108,19 @@ export default function Signup() {
                 autoComplete="current-password"
                 variant="standard"
                 size="small"
+                value={credentials.password}
+                onChange={handleChange}
+                name="password"
               />
             </div>
             <div class="MuiBox-root css-1id64jh">
               <button
                 class="MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeMedium MuiButton-containedSizeMedium MuiButton-fullWidth MuiButtonBase-root css-oagsia"
                 tabindex="0"
-                type="button"
+                type="submit"
               >
-                sign up<span class="MuiTouchRipple-root css-w0pj6f"></span>
+                sign up
+                {/* <span class="MuiTouchRipple-root css-w0pj6f"></span> */}
               </button>
             </div>
             <div class="MuiBox-root css-ne2rd">

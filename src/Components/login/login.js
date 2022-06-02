@@ -1,5 +1,8 @@
 import "./login.css";
-import * as React from "react";
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
+
 import Box from "@mui/material/Box";
 import GoogleIcon from "@mui/icons-material/Google";
 import GitHubIcon from "@mui/icons-material/GitHub";
@@ -7,8 +10,30 @@ import FacebookIcon from "@mui/icons-material/Facebook";
 import TextField from "@mui/material/TextField";
 import { Link } from "@mui/material";
 let background = require("../login/login.jpeg");
-
 export default function Login() {
+  const [credentials, setCredentials] = useState({ email: "", password: "" });
+  let navigate = useNavigate();
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    axios
+      .post("http://localhost:9045/api/auth/signIN", credentials)
+      .then((data) => {
+        console.log(data.data);
+        if (data.data.success === true) {
+          localStorage.setItem("token", data.data.data);
+          navigate("/");
+          window.alert("Login Successfull");
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  const handleChange = (e) => {
+    setCredentials({ ...credentials, [e.target.name]: e.target.value });
+  };
   return (
     <div className="App1" style={{ backgroundImage: `url(${background})` }}>
       <Box className="box">
@@ -46,14 +71,16 @@ export default function Login() {
           </svg>
         </div>
         <div className="form-div1">
-          <form>
+          <form onSubmit={handleSubmit}>
             <div className="form-div2">
               <TextField
                 required
                 fullWidth
+                onChange={handleChange}
+                value={credentials.email}
+                name="email"
                 id="outlined-required"
                 label="Email"
-                defaultValue="Hello World"
                 type="Email"
                 size="small"
               />
@@ -63,7 +90,10 @@ export default function Login() {
                 id="outlined-password-input"
                 label="Password"
                 type="password"
+                name="password"
                 fullWidth
+                onChange={handleChange}
+                value={credentials.password}
                 size="small"
                 autoComplete="current-password"
               />
@@ -72,9 +102,10 @@ export default function Login() {
               <button
                 class="MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeMedium MuiButton-containedSizeMedium MuiButton-fullWidth MuiButtonBase-root css-oagsia"
                 tabindex="0"
-                type="button"
+                type="Submit"
               >
-                sign in<span class="MuiTouchRipple-root css-w0pj6f"></span>
+                sign in
+                {/* <span class="MuiTouchRipple-root css-w0pj6f"></span> */}
               </button>
             </div>
             <div class="MuiBox-root css-ne2rd">
