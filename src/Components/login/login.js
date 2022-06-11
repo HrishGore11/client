@@ -14,7 +14,7 @@ export default function Login() {
   const [credentials, setCredentials] = useState({ email: "", password: "" });
   let navigate = useNavigate();
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
     axios
       .post("http://localhost:9045/api/auth/signIN", credentials)
@@ -22,7 +22,7 @@ export default function Login() {
         console.log(data.data);
         if (data.data.success === true) {
           localStorage.setItem("token", data.data.data);
-          navigate("/");
+          navigate("/Home");
           window.alert("Login Successfull");
         }
       })

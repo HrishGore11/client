@@ -24,6 +24,13 @@ export default function Dashboard() {
           <Link href="/Home" color="inherit">
             Home
           </Link>
+          <br />
+          <Link href="/ScreenShot" color="inherit">
+            ScreenShot
+          </Link>
+          <Link href="/Filters" color="inherit">
+            Filters
+          </Link>
         </Toolbar>
       </AppBar>
       <Outlet />

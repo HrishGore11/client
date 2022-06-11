@@ -16,7 +16,7 @@ export default function Signup() {
   });
   let navigate = useNavigate();
   // const {name, email, password} = credentials;
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
     axios
       .post("http://localhost:9045/api/auth/signUp", credentials)
